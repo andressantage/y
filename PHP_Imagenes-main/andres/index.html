@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="main.js" defer></script> -->
+<style>
+    body{
+        background-color: rgb(0, 0, 0);
+    }
+    h1{
+        color: white;
+    }
+    input{
+        color: white;
+    }
+    .a5{
+        color: black;
+    }
+    label{
+        color:white;
+    }
+    .a4{
+        color: black;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+    <center>
+        <h1>Cambia la imagen</h1>
+    </center>
+
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+        <center>
+            <!-- <p id="contenido">Tresssse</p>
+            <input type="hidden" name="co" id="b1"> -->
+            <label for="name">Escriba Palabra relacionada con la Imagen:</label>
+            <input class="a4"  type="text"  name="co" id="b1">
+            
+            <input type="file" name="image">
+            <input class="a5" type="submit" value="Upload">
+        </center>
+    </form>
+
+<script>
+// Validar que se haya seleccionado un archivo de imagen antes de enviar el formulario
+document.querySelector('form').addEventListener('submit', function(event) {
+    var fileInput = document.querySelector('input[type="file"]');
+    if (fileInput.value === '') {
+      event.preventDefault();
+      alert('Please select a file.');
+    }
+
+    // Obtener el contenido de la etiqueta <p>
+      /*   var contenido = document.getElementById('contenido').textContent;
+ */
+        // Asignar el contenido al campo oculto
+    /*     document.getElementById('b1').value = contenido;
+         */
+        // Enviar el formulario
+        this.submit();
+});
+</script>
+</body>
+</html>

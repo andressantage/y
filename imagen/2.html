@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+  <h1 id="listaValores"></h1>
+  <button id="a">enviar</button>
+    
+<script>
+var a=document.getElementById("a")
+
+function f(){
+  fetch("https://6460edfe185dd9877e33740e.mockapi.io/jugadores")
+    .then((response) => response.json())
+    .then((data) => {
+      const lista = document.getElementById("listaValores");
+      console.log(data)
+    })
+    .catch((error) => {
+      console.error("Error al obtener los datos:", error);
+    });
+}
+
+a.addEventListener("click", function (){
+  f()
+})
+</script>
+<!-- <script>
+var a1=document.getElementById("a1").innerHTML;
+var a2=document.querySelector("button")
+function registrarTiempo() {
+  const data = {
+    titulo: a1,
+    link: a1,
+  };
+
+  fetch("https://6460edfe185dd9877e33740e.mockapi.io/jugadores", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      console.log("Puntuación registrada:", result);
+      alert("¡Registro exitoso!");
+    })
+    .catch((error) => {
+      console.error("Error al registrar la puntuación:", error);
+      alert(
+        "Ha ocurrido un error. Por favor, intenta nuevamente."
+      );
+    });
+}
+
+a2.addEventListener("click", function (){
+    registrarTiempo();
+})
+</script> 
+ -->
+</body>
+</html>
