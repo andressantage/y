@@ -343,16 +343,18 @@
 <!-- seccion buscador -->
 <div class="container mt-4">
     <div class="row d-flex justify-content-center">
+    <form id="miFormulario">
         <div class="col-md-6">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="buscarImagen" placeholder="Buscar...">
-            <button class="btn btn-dark" id="buscar" type="button">
+            <input type="text" class="form-control" name="buscarImagen" placeholder="Buscar...">
+            <button class="btn btn-dark" onclick="procesarFormulario()" id="buscar" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
             </svg>
             </button>
         </div>
         </div>
+    </form>
     </div>
 </div>
 
@@ -382,36 +384,44 @@
 
 
 <script>
-let buscarImagen=document.getElementId("buscarImagen")
-let buscar=document.getElementId("buscar")
+
 let api=document.getElementId("api")
 
-function f(){
-fetch("https://6460edfe185dd9877e33740e.mockapi.io/jugadores")
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data)
-    let x
-    for(let i=0;i<data.length;i++){
-      if(data[i].titulo==buscarImagen.value){
-        /* const img=document.createElement("img") */
-        /* img.src=data[i].link */
-        api.innerHTML=`
-          <img class="m-1 p-0" src="${data[i].link}">
-        `
-      }else{
-        alert("No hay coincidencias para la palabra, intenta con otra busqueda")
-      }
+function procesarFormulario() {
+  // Obtener los valores de los campos de entrada
+  let buscarImagen=document.getElementId("buscarImagen")
+  // Validar los campos si es necesario
+
+  // Procesar los datos
+  // Aquí puedes realizar cualquier operación con los datos ingresados, como enviarlos a un servidor, realizar cálculos, etc.
+  console.log("buscarImagen: " + buscarImagen);
+
+  fetch("https://6460edfe185dd9877e33740e.mockapi.io/jugadores"){
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data)
+      let x
+      for(let i=0;i<data.length;i++){
+        if(data[i].titulo==buscarImagen.value){
+          /* const img=document.createElement("img") */
+          /* img.src=data[i].link */
+          api.innerHTML=`
+            <img class="m-1 p-0" src="${data[i].link}">
+          `
+        }else{
+          alert("No hay coincidencias para la palabra, intenta con otra busqueda")
+        }
+    }
+    })
+    .catch((error) => {
+      console.error("Error al obtener los datos:", error);
+  });
   }
-  })
-  .catch((error) => {
-    console.error("Error al obtener los datos:", error);
-});
+
+  // Restablecer el formulario
+  document.getElementById("miFormulario").reset();
 }
 
-buscar.addEventListener("click", function (){
-    f();
-}) 
 
 
 /* let a1=document.getElementById("subirImagen");
