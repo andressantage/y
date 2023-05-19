@@ -345,8 +345,8 @@
     <div class="row d-flex justify-content-center">
         <div class="col-md-6">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Buscar...">
-            <button class="btn btn-dark" type="button">
+            <input type="text" class="form-control" id="buscarImagen" placeholder="Buscar...">
+            <button class="btn btn-dark" id="buscar" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
             </svg>
@@ -361,6 +361,8 @@
   <div id="api">
 
   </div>
+
+
   <?php
   $directorio = 'uploads/'; // Reemplaza con la ruta a tu carpeta de imágenes
       $uuu='C:/xampp/htdocs/imagen/';
@@ -380,18 +382,38 @@
 
 
 <script>
+let buscarImagen=document.getElementId("buscarImagen")
+let buscar=document.getElementId("buscar")
 let api=document.getElementId("api")
 
+function f(){
 fetch("https://6460edfe185dd9877e33740e.mockapi.io/jugadores")
   .then((response) => response.json())
   .then((data) => {
     console.log(data)
-
-    api.innerHTML=""
+    let x
+    for(let i=0;i<data.length;i++){
+      if(data[i].titulo==buscarImagen.value){
+        /* const img=document.createElement("img") */
+        /* img.src=data[i].link */
+        api.innerHTML=`
+          <img class="m-1 p-0" src="${data[i].link}">
+        `
+      }else{
+        alert("No hay coincidencias para la palabra, intenta con otra busqueda")
+      }
+  }
   })
   .catch((error) => {
     console.error("Error al obtener los datos:", error);
 });
+}
+
+buscar.addEventListener("click", function (){
+    f();
+}) 
+
+
 /* let a1=document.getElementById("subirImagen");
 
   function registrarTiempo() {
