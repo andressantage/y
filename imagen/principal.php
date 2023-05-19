@@ -22,6 +22,16 @@
         padding: 0;
         box-sizing: border-box;
     }
+
+   /*  agregue esto para arreglar lo de la solicitud API */
+/*     @media (min-width: 576px){
+.modal-dialog {
+  max-width: 700px;
+  margin: 1.75rem auto;
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+}} */
+
     body{
       background-color: black; 
     }
@@ -139,7 +149,7 @@
         <div class="modal-body">
             <form>
              <!--  agregue el style="height: 500px" -->
-                <div class="d-flex justify-content-lg-start align-item-center" style="height: 450px">
+                <div class="d-flex justify-content-center align-item-center" style="height: 450px">
   <pre><code class="language-javascript">//Hacer solicitudes a la API
   //Ejecutar las siguientes lineas de codigo
   fetch("https://6460edfe185dd9877e33740e.mockapi.io/jugadores")
