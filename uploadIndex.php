@@ -16,7 +16,7 @@ if (mysqli_connect_errno()) {
 }
 
 //obtencion de valores del formulario
-$titulo = $_POST['title'];
+$titulo = rtrim($_POST['title']);
 $descripcion=$_POST['description'];
 $palabras='palabra';
 

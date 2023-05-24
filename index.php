@@ -30,7 +30,6 @@ foreach ($resultados_filtrados as $resultado) {
     $link = $resultado['link'];
     $titulo = $resultado['titulo'];
     $html .= '<img class="m-1 p-0 imagenes" name="imG" type="submit" src="' . $link . '" alt="' . $titulo . '">';
-
 }
 
 ?>
@@ -170,10 +169,54 @@ foreach ($resultados_filtrados as $resultado) {
     cursor: pointer;
   }
 
+/* ///////////////////// */
+.imgModal{
+  height: 400px;
+  width: 500px;
+}
+@media (max-width: 1300px){
   .imgModal{
-    height: 400px;
-    width: 500px;
+  height: 400px;
+  width: 500px;
   }
+}
+@media (max-width: 600px){
+  .imgModal{
+    height: 320px;
+    width: 400px;
+  }
+}
+@media (max-width: 500px){
+  .imgModal{
+    height: 256px;
+    width: 320px;
+  }
+}
+@media (max-width: 400px){
+  .imgModal{
+    height: 230.4x;
+    width: 288px;
+  }
+}
+@media (max-width: 300px){
+  .imgModal{
+    height: 164px;
+    width: 204.8px;
+  }
+}
+@media (max-width: 200px){
+  .imgModal{
+    height: 148px;
+    width: 184px;
+  }
+}
+@media (max-width: 200px){
+  .imgModal{
+    height: 120px;
+    width: 147px;
+  }
+}
+/* /////////////////////////// */
 
   p{
     margin-bottom: 0.2px;
@@ -456,13 +499,13 @@ fetch("https://6460edfe185dd9877e33740e.mockapi.io/apinux")
   <div class="h-100 d-flex justify-content-center align-items-center">
     <div class="modal1-content ">
       <span id="cerrar" class="close">&times;</span>
-      <h2 id="tituloModal">Modal</h2>
+      <h2 id="tituloModal"><!-- Modal --></h2>
       <div class="h-100 d-flex justify-content-center align-items-center">
         <img src="" id="imgModal" class="imgModal" alt="">
       </div>
   
-      <p id="autor" class="font-weight-bold">Autor</p>
-      <p id="contenido">Contenido del modal...</p>
+      <p id="autor" class="font-weight-bold"><!-- Autor --></p>
+      <p id="contenido"><!-- Contenido del modal... --></p>
       <button class="btn btn-secondary mt-2" id="descargar">Descargar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-down" viewBox="0 0 16 16">
       <path fill-rule="evenodd" d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1h-2z"/>
       <path fill-rule="evenodd" d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z"/></svg>
@@ -509,13 +552,32 @@ fetch("https://6460edfe185dd9877e33740e.mockapi.io/apinux")
     if(a===0){
       alert("No se encuentra la palabra")   
     }
+    //Al parecer esto es necesario para evitar el error
+    let b = document.querySelectorAll('.imagenes');
+    b.forEach((boton) => {
+        boton.addEventListener('click', (event) => {
+        const botonClicado = event.target;
+        const posicion = Array.from(b).indexOf(botonClicado);
+        openModal()
+        imgModal.src=botonClicado.src
+        h()
+        console.log(botonClicado) 
+        });
+    });  
+    ///
   })
   .catch((error) => {
     console.error("Error al obtener los datos:", error);
 });
 }
 buscar.addEventListener("click",f)
-
+let buscarImagen=document.getElementById("buscarImagen")
+buscarImagen.addEventListener('keydown', function(event){
+  if (event.key === 'Enter') {
+    event.preventDefault(); 
+    f();
+  }
+})
 
 ///
 
@@ -535,11 +597,23 @@ const closeBtn = document.getElementById("cerrar");
 const imgModal = document.getElementById("imgModal");
 
 closeBtn.addEventListener("click", function() {
+  let tituloModal=document.getElementById("tituloModal")
+    let autor=document.getElementById("autor")
+    let contenido=document.getElementById("contenido")
+    tituloModal.textContent=" ";
+    contenido.textContent=" ";
+    autor.textContent=" ";
   modal1.style.display = "none";
 });
 
 window.addEventListener("click", function(event) {
   if (event.target === modal1) {
+    let tituloModal=document.getElementById("tituloModal")
+    let autor=document.getElementById("autor")
+    let contenido=document.getElementById("contenido")
+    tituloModal.textContent=" ";
+    contenido.textContent=" ";
+    autor.textContent=" ";
     modal1.style.display = "none";
   }
 });
@@ -553,14 +627,21 @@ fetch("https://6460edfe185dd9877e33740e.mockapi.io/apinux")
     let autor=document.getElementById("autor")
     let contenido=document.getElementById("contenido")
     var nuevaUrl = imgModal.src.replace(/^http:\/\/localhost\/imagen\//, '');
-    console.log(nuevaUrl);
+    /* console.log(nuevaUrl); */
+    let a10=0
     for(let i=0;i<data.length;i++){
       if(data[i].link==nuevaUrl){
         tituloModal.innerHTML=data[i].titulo.charAt(0).toUpperCase() + data[i].titulo.slice(1)
         contenido.innerHTML=data[i].descripcion
         autor.innerHTML=data[i].autor
+        a10=1 
       }
-    }    
+    }
+    if(a10===0){
+      tituloModal.textContent=" ";
+      contenido.textContent=" ";
+      autor.textContent=" ";
+    }       
   })
   .catch((error) => {
     console.error("Error al obtener los datos:", error);
@@ -569,46 +650,8 @@ fetch("https://6460edfe185dd9877e33740e.mockapi.io/apinux")
 function openModal() {
   modal1.style.display = "block";
 }
-//MUTACION PARA RESOLVER EL ERROR
-let b = document.querySelectorAll('.imagenes');
 
-// Función para manejar los cambios en el DOM
-function handleDOMChanges(mutationsList, observer) {
-  for (let mutation of mutationsList) {
-    if (mutation.type === 'childList') {
-      // Actualizar el valor de 'b' al seleccionar los elementos nuevamente
-      b = document.querySelectorAll('.imagenes');
-      actualizarEventListeners();
-    }
-  }
-}
-
-// Función para actualizar los event listeners en los elementos 'b'
-function actualizarEventListeners() {
-  b.forEach((boton) => {
-    boton.addEventListener('click', (event) => {
-      const botonClicado = event.target;
-      const posicion = Array.from(b).indexOf(botonClicado);
-      openModal();
-      imgModal.src = botonClicado.src;
-      h();
-      console.log(botonClicado);
-    });
-  });
-}
-
-// Crear una instancia del MutationObserver y configurarla
-const observer = new MutationObserver(handleDOMChanges);
-const options = { childList: true, subtree: true };
-
-// Observar los cambios en el DOM
-observer.observe(document.body, options);
-
-// Inicializar los event listeners en los elementos 'b'
-actualizarEventListeners();
-
-/* function hun(){
-  let b=document.querySelectorAll('.imagenes')
+let b=document.querySelectorAll('.imagenes')
 b.forEach((boton) => {
     boton.addEventListener('click', (event) => {
     const botonClicado = event.target;
@@ -618,21 +661,7 @@ b.forEach((boton) => {
     h()
     console.log(botonClicado)
     });
-});
-} */
-
-/* let b=document.querySelectorAll('.imagenes')
-b.forEach((boton) => {
-    boton.addEventListener('click', (event) => {
-    const botonClicado = event.target;
-    const posicion = Array.from(b).indexOf(botonClicado);
-    openModal()
-    imgModal.src=botonClicado.src
-    console.log(botonClicado)
-    h()
-    
-    });
-}); */
+}); 
 /* document.addEventListener('DOMContentLoaded', function() {
 
 let b=document.querySelectorAll('.imagenes')

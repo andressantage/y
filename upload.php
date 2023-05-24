@@ -34,7 +34,7 @@ $url = 'https://6460edfe185dd9877e33740e.mockapi.io/apinux'; // URL de tu servid
 $data = [
   'titulo' =>  strtolower($titulo),
   'autor' => $nombre,
-  'link' => $target_file
+  'link' => $target_file,
   'descripcion' => $descripcion
 ];
 
